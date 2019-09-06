@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+         <t t-name="PosTicket_dos">
+            <t t-set="n" t-value="0"/> 
+              <t t-foreach="orderlines" t-as="num">
+               <t t-set="n" t-value="n+1"/> 
+            </t>
+        <t t-set="i" t-value="1"/> 
+     
+        <t t-foreach="orderlines" t-as="orderline">
+        <div class="pos-sale-ticket ">            
+           <t t-if="order.get_client()">
+                <t t-esc="order.get_client().name"/>
+            </t>
+            <div class="receipt-user">
+                Atendio: <t t-esc="widget.pos.get_cashier().name"/>
+            </div>
+        
+         <table class='receipt-orderlines'>
+                <colgroup>
+                    <col width='20%' />
+                    <col width='80%' />
+                </colgroup>
+                <tr >
+                     <td class="pos-right-align">
+                        <t t-esc="orderline.get_quantity_str_with_unit()" />
+                    </td>
+                    <td>
+                        <t t-esc="orderline.get_product().display_name"/>
+                         
+                    </td>
+                   
+                   
+                </tr>
+            </table>
+            <t t-esc="order.name"/> <span> Ticket </span>  <span t-esc="i"/> de <span t-esc="n"/> 
+                                      <t t-set="i" t-value="i+1"/> 
+
+            </div>
+        </t>
+        </t>
+   
+   <t t-extend="ReceiptScreenWidget">
+        <t t-jquery='div.receipt-screen.screen > div > div.centered-content.touch-scrollable > div.button.print' t-operation="after">
+            
+                    <div class="button print_format" style="background:green">
+                <i class='fa fa-print'></i> Imprimir etiqueta
+            </div>
+        </t>
+         <t t-jquery='div.receipt-screen.screen > div > div.centered-content.touch-scrollable > div.pos-receipt-container' t-operation="after">
+          <div style=" right:25%; top: 64px; bottom: 0px;
+    left:25%;
+    border-right: dashed 1px rgb(215,215,215);
+    border-left: dashed 1px rgb(215,215,215);
+    overflow-x: hidden;
+    overflow-y: auto;">
+            <div id="pos" class="pos-receipt-container-dos" style="font-size: 0.75em;text-align: center;
+			    direction: ltr;">
+	
+            </div>
+          </div>
+        </t>
+    </t>
+</templates>

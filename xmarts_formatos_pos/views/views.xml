@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="assets_format" name="pos_order_receipt_custom_assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+
+            <script type="text/javascript" src="/xmarts_formatos_pos/static/src/js/custom.js"></script>
+              <link rel="stylesheet" href="/xmarts_formatos_pos/static/src/css/pos_format.css"/>
+        </xpath>
+
+    </template>
+
+
+</odoo>
