@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates id="template" xml:space="preserve">
+   <t t-name="PosTicket_dos">
+      <t t-set="n" t-value="0"/> 
+      <t t-foreach="orderlines" t-as="num">
+         <t t-if="num.get_product().display_name != '[GD] Discount'">
+           <t t-set="n" t-value="n+1"/> 
+         </t>
+      </t>
+      <t t-set="i" t-value="1"/> 
 
-         <t t-name="PosTicket_dos">
-            <t t-set="n" t-value="0"/> 
-              <t t-foreach="orderlines" t-as="num">
-                 <t t-if="num.get_product().display_name != '[GD] Discount'">
-               <t t-set="n" t-value="n+1"/> 
-             </t>
-            </t>
-        <t t-set="i" t-value="1"/> 
-     
+      <div style=" text-align: left;
+          width: 287.244095px;
+          background-color: white;
+          margin: 20px;
+          padding: 15px;
+          font-size: 14px;
+          padding-bottom:30px;
+          display: inline-block;
+          font-family: 'Inconsolata';
+          border: solid 1px rgb(220,220,220);
+          border-radius: 3px;
+          overflow: hidden;">            
         <t t-foreach="orderlines" t-as="orderline">
           <t t-if="orderline.get_product().display_name != '[GD] Discount'">
-        <div style=" text-align: left;
-    width: 287.244095px;
-    background-color: white;
-    margin: 20px;
-    padding: 15px;
-    font-size: 14px;
-    padding-bottom:30px;
-    display: inline-block;
-    font-family: 'Inconsolata';
-    border: solid 1px rgb(220,220,220);
-    border-radius: 3px;
-    overflow: hidden;">            
-           <t t-if="order.get_client()">
-                <t t-esc="order.get_client().name"/>
+            <t t-if="order.get_client()">
+              <t t-esc="order.get_client().name"/>
             </t>
             <div class="receipt-user">
                 Atendio: <t t-esc="widget.pos.get_cashier().name"/>
             </div>
-        
-         <table class='receipt-orderlines'>
+            <table class='receipt-orderlines'>
                 <colgroup>
                     <col width='20%' />
                     <col width='80%' />
@@ -42,22 +40,18 @@
                     </td>
                     <td>
                         <t t-esc="orderline.get_product().display_name"/>
-                         
                     </td>
-                   
-                   
                 </tr>
             </table>
-            <t t-esc="order.name"/> <span> Ticket </span>  <span t-esc="i"/> de <span t-esc="n"/> 
-                                      <t t-set="i" t-value="i+1"/> 
-
-            </div>
+            <t t-esc="order.name"/> 
+                <span> Ticket </span>  <span t-esc="i"/> 
+                de <span t-esc="n"/> <t t-set="i" t-value="i+1"/> 
             <p style = "page-break-after: always;"> </p> 
+            <br />
+          </t>
         </t>
-      </t>
-
-
-        </t>
+      </div>
+   </t>
    
    <t t-extend="ReceiptScreenWidget">
         <t t-jquery='div.receipt-screen.screen > div > div.centered-content.touch-scrollable > div.button.print' t-operation="after">
@@ -74,8 +68,8 @@
     overflow-x: hidden;
     overflow-y: auto;">
             <div id="pos" class="pos-receipt-container-dos" style="font-size: 0.75em;text-align: center;
-			    direction: ltr;">
-	
+          direction: ltr;">
+  
             </div>
           </div>
         </t>
@@ -116,103 +110,96 @@
         
         </t>
         </t>
-
-         <t t-extend="PosTicket">
-        <t t-jquery=".pos-sale-ticket" t-operation="after">
-              <p style = "page-break-after: always;"> </p> 
-        <div class="pos-sale-ticket ">
-           <div class="receipt-user">     
-<span>
-  CONTRATO DE PRESTACION DE SERVICIOS DE TINTORERIA V PLANCHADO QUE CELEBRAN 
-  POR UNA PARTE “EL PROVEEDOR" Y POR LA OTRA PARTE “EL CONSUMIDOR", CUYOS 
-  NOMBRES Y DATOS CONSTAN EN LA ORDEN DE SERVICIO DEL PRESENTE CONTRATO COMO 
-  PARTE INTEGRAL DEL MISMO. AL TENOR DE LAS SIGUIENTES CLAUSULAS:</span><br/><span>
-  1a. El objeto de este contrato es el lavado y planchado de las prendas que en el anverso se describen, en 
-  caso de ser diferente se especificara. </span><br/><span>
-  2a. Deberan quedar especiticados en la orden de servicro: a) el monto total a pagar por la operacion del 
-  servicio y/o servicios adicionales; b)La fecha de entrega; c) Cualquier deterioro que tenga la prenda, 
-  incluyendo adornos y aplicaciones; d) Cualquier riesgo que corra la prenda por el proceso; e) El proceso a 
-  que sera sometida la prenda cuando esta no tenga etiqueta de instrucciones de limpieza; f) Las manchas o 
-  decoloraciones visibles y g) Por lo que se refiere a prendas de alta costura o diseño que superen un valor 
-  a $8000.00 pesos, caracteristicas que guarda, servicio solicitado, precio del servicio, limite de garantia, 
-  fecha de entrega y riesgo que corren, seran convenidos previamente y por escrito entre "El consumidor" y 
-  "El proveedor", en el anverso de este contrato. Todo tipo de cortinas y prendas que por su naturaleza sean 
-  expuestas al sol o a la intemperie no seran objeto de garantia, lo cual quedara por escrito en la orden de 
-  servicio </span><br/><span>
-  3a. “El proveedor" no esta obligado a eliminar las manchas que por su naturaleza sean insolubles. 
-  Asimismo, no sera responsable por vicios ocultos que presenten las prendas, manchas no perceptibles a la 
-  vista al momento de la recepcion de la ($) prenda (s) у que surgieran durante su proceso de lavado y/o 
-  planchado, tales como los residuos de perfumes, ácidos, desodorantes o exudacion. En el caso del servicio 
-  exclusivamente de plachado “El proveedor del servicio“ no se obliga a restablecer la apariencia original de 
-  la (s) prenda (s) en lo que se retiere a tersura y/o tamaño. </span><br/><span>
-  4a. “El proveedor" del servicio se obliga: a) lnformar al consumidor el monto total a pagar por la operacion 
-  del servicio, incluyendo el precio de los servicios adicionales, asi como las restricciones que, en su caso, 
-  sean aplicables en la prestacion del servicio objeto de este contrato mismas que deberán ser anotadas en 
-  la orden de servicio; b)Revisar el estado que guardan las prendas, haciendo ver al consumidor cualquier 
-  deterioro o riesgo en el proceso de limpieza, fijando el limite de garantia; c) Seguir las instrucciones de 
-  lavado y/o planchado contenidas en las etiquetas en idioma español; d) Reparar las prendas en caso de 
-  deterioro parcial imputable a el mismo, dentro de los treinta dias siguientes a la presentacion de la 
-  inconformidad de “El consumidor“, sin costo alguno para este, aun cuando se haya subcontratado el 
-  servicio con terceros; e) Devolver el importe del servicio no realizado cuando previamente se haya cobrado; 
-  f) Indemnizar en caso de deterioro total o perdida, salvo causas de fuerza mayor a su propietario hasta con 
-  un maximo de 12 veces el precio del servicio pactado por dicha prenda, o un maximo del 60% del valor de 
-  la prenda que las partes de comun acuerdo hayan declarado o en su defecto, que "El consurnidor' pueda 
-  demostrar fehacientemente, en caso de no haber manfestado el valor de la prenda como lo establece la 
-  clausula sexta inciso (f) , el proveedor solo se obliga a pagar el 60% de $8,000(ocho mil pesos) como valor 
-  maximo de la prenda; g) Corregir sin cargo extra, las deficiencias en el servicio que "El consumidor“ 
-  encuentre en el momento de recoger las prendas. La garantia se limita al cumplimiento del servicio 
-  solicitado siempre y cuando la maquinaria cumpla con las caracteristicas del servicio requerido por el 
-  consumidor, y se hara valida en el mismo establecimiento. Salidas las prendas del establecimiento no se 
-  admite reclamacion por este concepto; h) Entregar las prendas en el dia pactado en la orden de servicio, 
-  salvo causas de fuerza mayor; i) ldentificarse plenamente ante el consumidor en el caso de que se preste 
-  el servicio a domicilio, de haber un cargo adicional por dicho servicio se especiticara en el anverso del 
-  presente contrato;  Preguntar a “el consumidor si alguna de las prendas es de alta costura o diseño que 
-  superen un valor a $8000.00 pesos.</span><br/><span> 
-  5a. “El proveedor" no es responsable de: a) Objetos y/o valores olvidados en las prendas; b) Los  daños que 
-  pudiera sufrir la prenda en caso de que esta no cuente con instrucciones de lavado o sean erróneas; с) por 
-  las alteraciones de colores producidas por el sol, colores o estampados no solidos, manchas manipuladas 
-  previamente por el “Consumidor“ y por las manchas no perceptibles a simple vista, tales como residuos de 
-  desodorante, perfumes, exudacion o acidos, asi como tambien baja de tono y/o textura que surgiera 
-  durante el proceso de lavado a causa de la calidad del teñido y/o confeccion textil por parte del fabricante, 
-  deterioro de rellenos, entretetas y partes ocultas de la prenda, y del estado de limpieza o planchado que 
-  guarden las prendas despues de treinta dias naturales a patir del dia pactado para su entrega; d) En el 
-  caso de la (s) prenda (s) de alta costura, diseno y las prendas que superen el valor de $8,000 (ocho mil 
-  pesos) de las cuales el consumidor haga mencion, las garantias seran de acuerdo al tipo y caracteristicas 
-  de la prenda у quedaran establecidas de común acuerdo entre las partes, lo cual quedara por escrito en el 
-  anverso de este contrato.</span><br/><span> 
-  6a. "El consumidor"; debera: a) Pagar en efectivo en el establecimiento al momento de ordenar el servicio 
-  o al recoger las prendas a elección del consumidor, en moneda nacional, o extranjera que acepte “El 
-  proveedor". Las prendas para efectos de control no serán entregadas en forma parcial; b) Recoger las 
-  prendas en la fecha convenida; c) Verificar que sean las mismas que entregó para su servicio; e) Pagar por 
-  concepto de almacenaje, despues de treinta dias, el 1% sobre el valor del servicio por cada dia que 
-  transcurra; en ningún caso el pago por el almacenaje excedera del monto total. En caso de que transcurran 
-  noventa dias sin que “El consumidor recoja su (s) prenda (s), “El proveedor del servicio" se constituira como 
-  acreedor prendario respecto de la (s) misma (s) pudiendo ejecutar la prenda de manera inmediata, en 
-  terminos de las disposiciones legales aplicables; e) En caso de no presentar la orden de servicio para 
-  recoger las prendas, exhibir una identillcacion oficial, firmar de recibido en la copia de la orden de servicio; 
-  f)"El consumidor debera manitestar el valor de la prenola cuando el costo sea mayor a $8,000.00 pesos, en 
-  caso de indemnizacion, deberá de comprobar el valor de la prenda de manera fehaciente con ticket y/o 
-  factura de compra. </span><br/><span>
-  7a. Son causas de terminacion del presente contrato; a) Que “El consumidor” antes de que se haya iniciado 
-  el proceso, avise a ”El proveedor" que no quiere utilizar el servicio; b) que “El proveedor" detecte que la 
-  prenda o sus accesorios pudieran sufrir daño. En estos casos no habrá indemnizacion para ninguna de las 
-  partes. </span><br/><span>
-  8a. Son causas de recision del presente contrato: a) Que el “Ploveedor" no cumpla con la entrega de la(s) 
-  Prenda (s) en la fecha establecida en la orden de servicio del presente contrato. </span><br/><span>
-  9a. Pena convencional: Se establece como pena convencional para el prestador del servicio en caso de 
-  incumplimiento en fecha de entrega, el pago del 1% del valor del servicio por cada dia que transcurra sin 
-  rebasar el monto total del servicio solicitado, asimismo se establece como pena convencional para el 
-  consumidor el pago por concepto de almacenaje establecido en la clausula 6a. Inciso (d) de este contrato. 
-  10a. La recepcion de este documento y la entrega de la (s) prenda (s) implican la aceptacion del presente 
-  contrato. </span><br/><span>
-  11a. Para dirimir cualquier controversia las partes se someten a la via administrativa de la Procuraduria 
-  Federal del Consumidor. </span><br/><span>
-  El contrato fue aprobado e inscrito por la Procuraduria Federal del Consumidor pajo el No. 8914-2018 </span><br/><span>
-  Expediente No. PFC.B.E. 7/009636-2018 de fecha 07 de Septiembre del 2018. </span>
-
-
-           </div>
-        </div> 
+        <t t-extend="PosTicket">
+            <t t-jquery=".receipt-change" t-operation="after">
+                <p style = "page-break-after: always;"> </p> 
+                <span>
+                        CONTRATO DE PRESTACION DE SERVICIOS DE TINTORERIA V PLANCHADO QUE CELEBRAN 
+                        POR UNA PARTE “EL PROVEEDOR" Y POR LA OTRA PARTE “EL CONSUMIDOR", CUYOS 
+                        NOMBRES Y DATOS CONSTAN EN LA ORDEN DE SERVICIO DEL PRESENTE CONTRATO COMO 
+                        PARTE INTEGRAL DEL MISMO. AL TENOR DE LAS SIGUIENTES CLAUSULAS:</span><br/><span>
+                        1a. El objeto de este contrato es el lavado y planchado de las prendas que en el anverso se describen, en 
+                        caso de ser diferente se especificara. </span><br/><span>
+                        2a. Deberan quedar especiticados en la orden de servicro: a) el monto total a pagar por la operacion del 
+                        servicio y/o servicios adicionales; b)La fecha de entrega; c) Cualquier deterioro que tenga la prenda, 
+                        incluyendo adornos y aplicaciones; d) Cualquier riesgo que corra la prenda por el proceso; e) El proceso a 
+                        que sera sometida la prenda cuando esta no tenga etiqueta de instrucciones de limpieza; f) Las manchas o 
+                        decoloraciones visibles y g) Por lo que se refiere a prendas de alta costura o diseño que superen un valor 
+                        a $8000.00 pesos, caracteristicas que guarda, servicio solicitado, precio del servicio, limite de garantia, 
+                        fecha de entrega y riesgo que corren, seran convenidos previamente y por escrito entre "El consumidor" y 
+                        "El proveedor", en el anverso de este contrato. Todo tipo de cortinas y prendas que por su naturaleza sean 
+                        expuestas al sol o a la intemperie no seran objeto de garantia, lo cual quedara por escrito en la orden de 
+                        servicio </span><br/><span>
+                        3a. “El proveedor" no esta obligado a eliminar las manchas que por su naturaleza sean insolubles. 
+                        Asimismo, no sera responsable por vicios ocultos que presenten las prendas, manchas no perceptibles a la 
+                        vista al momento de la recepcion de la ($) prenda (s) у que surgieran durante su proceso de lavado y/o 
+                        planchado, tales como los residuos de perfumes, ácidos, desodorantes o exudacion. En el caso del servicio 
+                        exclusivamente de plachado “El proveedor del servicio“ no se obliga a restablecer la apariencia original de 
+                        la (s) prenda (s) en lo que se retiere a tersura y/o tamaño. </span><br/><span>
+                        4a. “El proveedor" del servicio se obliga: a) lnformar al consumidor el monto total a pagar por la operacion 
+                        del servicio, incluyendo el precio de los servicios adicionales, asi como las restricciones que, en su caso, 
+                        sean aplicables en la prestacion del servicio objeto de este contrato mismas que deberán ser anotadas en 
+                        la orden de servicio; b)Revisar el estado que guardan las prendas, haciendo ver al consumidor cualquier 
+                        deterioro o riesgo en el proceso de limpieza, fijando el limite de garantia; c) Seguir las instrucciones de 
+                        lavado y/o planchado contenidas en las etiquetas en idioma español; d) Reparar las prendas en caso de 
+                        deterioro parcial imputable a el mismo, dentro de los treinta dias siguientes a la presentacion de la 
+                        inconformidad de “El consumidor“, sin costo alguno para este, aun cuando se haya subcontratado el 
+                        servicio con terceros; e) Devolver el importe del servicio no realizado cuando previamente se haya cobrado; 
+                        f) Indemnizar en caso de deterioro total o perdida, salvo causas de fuerza mayor a su propietario hasta con 
+                        un maximo de 12 veces el precio del servicio pactado por dicha prenda, o un maximo del 60% del valor de 
+                        la prenda que las partes de comun acuerdo hayan declarado o en su defecto, que "El consurnidor' pueda 
+                        demostrar fehacientemente, en caso de no haber manfestado el valor de la prenda como lo establece la 
+                        clausula sexta inciso (f) , el proveedor solo se obliga a pagar el 60% de $8,000(ocho mil pesos) como valor 
+                        maximo de la prenda; g) Corregir sin cargo extra, las deficiencias en el servicio que "El consumidor“ 
+                        encuentre en el momento de recoger las prendas. La garantia se limita al cumplimiento del servicio 
+                        solicitado siempre y cuando la maquinaria cumpla con las caracteristicas del servicio requerido por el 
+                        consumidor, y se hara valida en el mismo establecimiento. Salidas las prendas del establecimiento no se 
+                        admite reclamacion por este concepto; h) Entregar las prendas en el dia pactado en la orden de servicio, 
+                        salvo causas de fuerza mayor; i) ldentificarse plenamente ante el consumidor en el caso de que se preste 
+                        el servicio a domicilio, de haber un cargo adicional por dicho servicio se especiticara en el anverso del 
+                        presente contrato;  Preguntar a “el consumidor si alguna de las prendas es de alta costura o diseño que 
+                        superen un valor a $8000.00 pesos.</span><br/><span> 
+                        5a. “El proveedor" no es responsable de: a) Objetos y/o valores olvidados en las prendas; b) Los  daños que 
+                        pudiera sufrir la prenda en caso de que esta no cuente con instrucciones de lavado o sean erróneas; с) por 
+                        las alteraciones de colores producidas por el sol, colores o estampados no solidos, manchas manipuladas 
+                        previamente por el “Consumidor“ y por las manchas no perceptibles a simple vista, tales como residuos de 
+                        desodorante, perfumes, exudacion o acidos, asi como tambien baja de tono y/o textura que surgiera 
+                        durante el proceso de lavado a causa de la calidad del teñido y/o confeccion textil por parte del fabricante, 
+                        deterioro de rellenos, entretetas y partes ocultas de la prenda, y del estado de limpieza o planchado que 
+                        guarden las prendas despues de treinta dias naturales a patir del dia pactado para su entrega; d) En el 
+                        caso de la (s) prenda (s) de alta costura, diseno y las prendas que superen el valor de $8,000 (ocho mil 
+                        pesos) de las cuales el consumidor haga mencion, las garantias seran de acuerdo al tipo y caracteristicas 
+                        de la prenda у quedaran establecidas de común acuerdo entre las partes, lo cual quedara por escrito en el 
+                        anverso de este contrato.</span><br/><span> 
+                        6a. "El consumidor"; debera: a) Pagar en efectivo en el establecimiento al momento de ordenar el servicio 
+                        o al recoger las prendas a elección del consumidor, en moneda nacional, o extranjera que acepte “El 
+                        proveedor". Las prendas para efectos de control no serán entregadas en forma parcial; b) Recoger las 
+                        prendas en la fecha convenida; c) Verificar que sean las mismas que entregó para su servicio; e) Pagar por 
+                        concepto de almacenaje, despues de treinta dias, el 1% sobre el valor del servicio por cada dia que 
+                        transcurra; en ningún caso el pago por el almacenaje excedera del monto total. En caso de que transcurran 
+                        noventa dias sin que “El consumidor recoja su (s) prenda (s), “El proveedor del servicio" se constituira como 
+                        acreedor prendario respecto de la (s) misma (s) pudiendo ejecutar la prenda de manera inmediata, en 
+                        terminos de las disposiciones legales aplicables; e) En caso de no presentar la orden de servicio para 
+                        recoger las prendas, exhibir una identillcacion oficial, firmar de recibido en la copia de la orden de servicio; 
+                        f)"El consumidor debera manitestar el valor de la prenola cuando el costo sea mayor a $8,000.00 pesos, en 
+                        caso de indemnizacion, deberá de comprobar el valor de la prenda de manera fehaciente con ticket y/o 
+                        factura de compra. </span><br/><span>
+                        7a. Son causas de terminacion del presente contrato; a) Que “El consumidor” antes de que se haya iniciado 
+                        el proceso, avise a ”El proveedor" que no quiere utilizar el servicio; b) que “El proveedor" detecte que la 
+                        prenda o sus accesorios pudieran sufrir daño. En estos casos no habrá indemnizacion para ninguna de las 
+                        partes. </span><br/><span>
+                        8a. Son causas de recision del presente contrato: a) Que el “Ploveedor" no cumpla con la entrega de la(s) 
+                        Prenda (s) en la fecha establecida en la orden de servicio del presente contrato. </span><br/><span>
+                        9a. Pena convencional: Se establece como pena convencional para el prestador del servicio en caso de 
+                        incumplimiento en fecha de entrega, el pago del 1% del valor del servicio por cada dia que transcurra sin 
+                        rebasar el monto total del servicio solicitado, asimismo se establece como pena convencional para el 
+                        consumidor el pago por concepto de almacenaje establecido en la clausula 6a. Inciso (d) de este contrato. 
+                        10a. La recepcion de este documento y la entrega de la (s) prenda (s) implican la aceptacion del presente 
+                        contrato. </span><br/><span>
+                        11a. Para dirimir cualquier controversia las partes se someten a la via administrativa de la Procuraduria 
+                        Federal del Consumidor. </span><br/><span>
+                        El contrato fue aprobado e inscrito por la Procuraduria Federal del Consumidor pajo el No. 8914-2018 </span><br/><span>
+                        Expediente No. PFC.B.E. 7/009636-2018 de fecha 07 de Septiembre del 2018. </span>
+            </t>
         </t>
-    </t>
 </templates>
